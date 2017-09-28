@@ -1,0 +1,103 @@
+<div class="section">
+  <div class="container">
+    <form action="" name="formPartner">
+      <div class="columns">
+        <div class="column is-4">
+          <div class="image">
+            <img src="https://placehold.it/180x180">
+          </div>
+        </div>
+        <div class="column is-8">
+          <div class="field">
+            <label class="label">Nombre</label>
+            <div class="control has-icons-right">
+              <input name="name" class="input" ng-class="{'is-danger': formPartner.name.$touched && formPartner.name.$invalid,'is-success':formPartner.name.$touched && formPartner.name.$valid}" ng-model="form.name" type="text" placeholder="CreeTec" required>
+              <span class="icon is-small is-right">
+                <i ng-class="{'fa fa-warning':formPartner.name.$touched && formPartner.name.$invalid,'fa fa-check':formPartner.name.$touched && formPartner.name.$valid}"></i>
+              </span>
+            </div>
+            <!--p class="help is-success">This username is available</p-->
+          </div>
+          <div class="field">
+            <label class="label">Dirección</label>
+            <div class="control has-icons-right">
+              <input class="input"  ng-class="{'is-danger': formPartner.address.$touched && formPartner.address.$invalid,'is-success':formPartner.address.$touched && formPartner.address.$valid}" type="text" ng-model="form.address" placeholder="Text input" required>
+              <span class="icon is-small is-right">
+                <i ng-class="{'fa fa-warning':formPartner.address.$touched && formPartner.address.$invalid,'fa fa-check':formPartner.address.$touched && formPartner.address.$valid}"></i>
+            </div>
+            <!--p class="help is-danger">This email is invalid</p-->
+          </div>
+          <div class="columns">
+            <div class="column is-4">
+              <label class="label">Teléfono</label>
+              <div class="control has-icons-right">
+                <input class="input"  ng-class="{'is-danger': formPartner.phone.$touched && formPartner.phone.$invalid,'is-success':formPartner.phone.$touched && formPartner.phone.$valid}" type="tel" ng-model="form.phone" placeholder="Text input" required>
+                <span class="icon is-small is-right">
+                  <i ng-class="{'fa fa-warning':formPartner.phone.$touched && formPartner.phone.$invalid,'fa fa-check':formPartner.phone.$touched && formPartner.phone.$valid}"></i>
+                </span>
+              </div>
+              <!--p class="help is-success">This username is available</p-->
+            </div>
+            <div class="column is-4">
+              <label class="label">Email</label>
+              <div class="control has-icons-right">
+                <input class="input"  ng-class="{'is-danger': formPartner.email.$touched && formPartner.email.$invalid,'is-success':formPartner.email.$touched && formPartner.email.$valid}" type="email" ng-model="form.email" placeholder="creetec@mail.com" required>
+                <span class="icon is-small is-right">
+                  <i ng-class="{'fa fa-warning':formPartner.email.$touched && formPartner.email.$invalid,'fa fa-check':formPartner.email.$touched && formPartner.email.$valid}"></i>
+                </span>
+              </div>
+              <!--p class="help is-success">This username is available</p-->
+            </div>
+            <div class="column is-4">
+              <label class="label">Website</label>
+              <div class="control has-icons-right">
+                <input class="input"  ng-class="{'is-danger': formPartner.website.$touched && formPartner.website.$invalid,'is-success':formPartner.website.$touched && formPartner.website.$valid}" type="url" ng-model="form.website" placeholder="creetec.com" required>
+                <span class="icon is-small is-right">
+                  <i ng-class="{'fa fa-warning':formPartner.website.$touched && formPartner.website.$invalid,'fa fa-check':formPartner.website.$touched && formPartner.website.$valid}"></i>
+                </span>
+              </div>
+              <!--p class="help is-success">This username is available</p-->
+            </div>
+          </div>
+        </div>
+      </div>
+      <hr>
+      <div class="field">
+        <span class="title is-4">Descripción</span>
+        <div class="control">
+          <textarea class="textarea" ng-model="form.description" placeholder="Textarea"></textarea>
+        </div>
+      </div>
+      <div class="field">
+        <div class="control">
+          <button ng-disabled="formPartner.$invalid" ng-click="submit()" class="button is-primary">Submit</button>
+        </div>
+      </div>
+    </form>
+    <hr>
+    <div class="columns">
+      <div class="column">
+        <span class="title is-4">Product Name</span>
+        <span class="title is-5 has-text-muted">
+          <a href="" ng-click="showModal = true">+</a>
+        </span>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="modal" ng-class="{'is-active':showModal}">
+  <div class="modal-background"></div>
+  <div class="modal-card">
+    <header class="modal-card-head">
+      <p class="modal-card-title">Modal title</p>
+      <button ng-click="showModal = false" class="delete" aria-label="close"></button>
+    </header>
+    <section class="modal-card-body">
+      <!-- Content ... -->
+    </section>
+    <footer class="modal-card-foot">
+      <button class="button is-success">Save changes</button>
+      <button ng-click="showModal = false" class="button">Cancel</button>
+    </footer>
+  </div>
+</div>

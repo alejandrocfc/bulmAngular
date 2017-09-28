@@ -1,0 +1,165 @@
+extends layout
+
+block content
+    article#step1.basis-md-10.offset-md-2.basis-lg-8.offset-lg-2.ph3.mv4
+        h2.mt0.brand Información de Solicitante
+        form#formulario.flex.wrap(method='POST' action='/step2')
+            fieldset.basis-md-12
+                label.block.f7(for='pFirst') Nombres y Apellidos
+                input#pFirst(name='pFirst', placeholder='Sólo letras sin acentos', required='')
+            fieldset.basis-md-4
+                label.block.f7(for='pTypeId') Tipo de Documento
+                select#pTypeId
+                    option(value="cc") Cédula de Ciudadanía
+                    option(value="ce") Cédula de Extranjería
+                    option(value="pass") Pasaporte
+            fieldset.basis-md-4
+                label.block.f7(for='pDNI') Número de Documento
+                input#pDNI(type='number', name='dni', placeholder='Sólo números', required)
+            fieldset.basis-md-4
+                label.block.f7(for='pState') Estado Cívil
+                select#pState(onchange="check(this);")
+                    option(value="soltero") Soltero(a)
+                    option(value="casado") Casado(a)
+                    option(value="unión libre") Unión libre
+                    option(value="viudo") Viudo
+
+            //Info pareja
+            div#couple.basis-md-12.flex.wrap.mb1.pa1(style='display: none; background: #e2e2e2')
+                h4.mt0.basis-md-12 Datos Conyugue
+                fieldset.basis-md-6
+                    label.block.f7(for='pCname') Nombres y Apellidos
+                    input#pCname(name='pCname', placeholder='Sólo letras sin acentos')
+                fieldset.basis-md-6
+                    label.block.f7(for='pCkind') Tipo de Documento
+                    select#pCkind
+                        option(value="volvo") Cédula de Ciudadanía
+                        option(value="volvo") Cédula de Extranjería
+                        option(value="volvo") Pasaporte
+                fieldset.basis-md-6
+                    label.block.f7(for='pCid') Número de Documento
+                    input#pCid(type='number', name='dni', placeholder='Sólo números')
+                fieldset.basis-md-6
+                    label.block.f7(for='pCtel') Número de celular
+                    input#pCtel(type='tel', placeholder='Sólo números')
+
+            fieldset.basis-md-12
+                label.block.f7(for='locationField') Dirección de Domicilio
+                div#locationField
+                    input#autocomplete(placeholder="Ingresa tu dirección", onfocus='geolocate();', type="text")
+            fieldset.basis-md-12
+                #address.flex.wrap
+                    fieldset.basis-md-6
+                        .flex.wrap
+                            label.basis-md-12 Dirección
+                            fieldset.wideField.basis-md-6
+                                input#route.field(disabled='true')
+                            fieldset.slimField.basis-md-6
+                                input#street_number.field(disabled='true')
+                    fieldset.basis-md-2
+                        label.block Ciudad
+                        .wideField
+                            input#locality.field(disabled='true')
+                    fieldset.basis-md-2
+                        label.block Departamento
+                        .slimField
+                            input#state.field(disabled='true')
+                    fieldset.basis-md-2
+                        label.block País
+                        .wideField
+                            input#country.field(disabled='true')
+            fieldset.basis-md-6
+                label.block.f7(for='pTel') Teléfono de Domicilio
+                input#pTel(type='number', name='tel', placeholder='Sólo números', required='')
+            fieldset.basis-md-6
+                label.block.f7(for='pMobile') Celular
+                input#pMobile(type='number', name='cel', placeholder='Sólo números', required='')
+
+            .basis-md-12.flex.justify-between.mt3
+                fieldset.basis-md-4
+                    a.button(href="/step?plan=on") Regresar
+                fieldset.basis-md-4
+                    input.button(type='submit', onclick='move(true);', value='Continuar')
+
+    script(src="https://maps.googleapis.com/maps/api/js?key=AIzaSyC5bOTru4W2RJ4o9HMHBR_hdo5nOcR9tB0&libraries=places&callback=initAutocomplete" async='' defer='')
+    script
+        include includes/googleMaps.js
+    script.
+        function check(elem) {
+            var asd = elem.selectedIndex;
+            if(asd === 1 || asd === 2) {
+                document.getElementById('couple').style.display = "flex";
+            }else{
+                document.getElementById('couple').style.display = "none";
+            }
+        }
+    script.
+        function move(flag) {
+            var step1 = {
+                namep: document.getElementById('pFirst').value,
+                kind: document.getElementById('pTypeId').value,
+                id: document.getElementById('pDNI').value,
+                state: document.getElementById('pState').value,
+                couple_name: document.getElementById('pCname').value,
+                couple_kind: document.getElementById('pCkind').value,
+                couple_id: document.getElementById('pCid').value,
+                couple_tel: document.getElementById('pCtel').value,
+                address: document.getElementById('autocomplete').value,
+                street: document.getElementById('street_number').value,
+                number: document.getElementById('route').value,
+                locality: document.getElementById('locality').value,
+                city: document.getElementById('state').value,
+                country: document.getElementById('country').value,
+                tel: document.getElementById('pTel').value,
+                mobile: document.getElementById('pMobile').value
+            }
+            localStorage.setItem("step1", JSON.stringify(step1));
+            if (flag) {
+                console.log('TRUE');
+                document.getElementById('formulario').submit()
+            } else {
+                console.log('FALSE asdasd');
+                window.location.href = '/';
+            }
+        }
+    script.
+        var paso1 = localStorage.getItem('step1'),
+            namep = document.getElementById('pFirst'),
+            kind = document.getElementById('pTypeId'),
+            id = document.getElementById('pDNI'),
+            state = document.getElementById('pState'),
+            couple_name = document.getElementById('pCname'),
+            couple_kind = document.getElementById('pCkind'),
+            couple_id = document.getElementById('pCid'),
+            couple_tel = document.getElementById('pCtel'),
+            address = document.getElementById('autocomplete'),
+            street = document.getElementById('street_number'),
+            number = document.getElementById('route'),
+            locality = document.getElementById('locality'),
+            city = document.getElementById('state'),
+            country = document.getElementById('country'),
+            tel = document.getElementById('pTel'),
+            mobile = document.getElementById('pMobile');
+        paso1 = JSON.parse(paso1);
+        namep.value = (paso1.namep) ? paso1.namep : null;
+        kind.value = (paso1.kind) ? paso1.kind : null;
+        id.value = (paso1.id) ? paso1.id : null;
+        state.value = (paso1.state) ? paso1.state : null;
+        couple_name.value = (paso1.couple_name) ? paso1.couple_name : null;
+        couple_kind.value = (paso1.couple_kind) ? paso1.couple_kind : null;
+        couple_id.value = (paso1.couple_id) ? paso1.couple_id : null;
+        couple_tel.value = (paso1.couple_tel) ? paso1.couple_tel : null;
+        address.value = (paso1.address) ? paso1.address : null;
+        street.value = (paso1.street) ? paso1.street : null;
+        number.value = (paso1.number) ? paso1.number : null;
+        locality.value = (paso1.locality) ? paso1.locality : null;
+        city.value = (paso1.city) ? paso1.city : null;
+        country.value = (paso1.country) ? paso1.country : null;
+        tel.value = (paso1.tel) ? paso1.tel : null;
+        mobile.value = (paso1.mobile) ? paso1.mobile : null;
+
+
+
+
+
+
